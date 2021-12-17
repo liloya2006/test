@@ -46,19 +46,29 @@ func OneDay() {
 }
 
 func main() {
-	args := os.Args
+	fmt.Print("If you write 1, you get information about seven last day."+ "\n" +
+		"If you write 2, you get information about average figures for the last 7 days." + "\n" +
+		"If you write 3, you get information about random day." + "\n" +
+		"Please, write number:")
+	reader := bufio.NewReader(os.Stdin)
+	input, err := reader.ReadString('\n')
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	switch args[1] {
-	case "1":
-		Average()
+	input = strings.TrimSpace(input)
+	numb, err := strconv.ParseFloat(input, 64)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-		break
-	case "2":
+	if numb == 1 {
 		Summary()
-		break
-	case "3":
+	} else if numb == 2 {
+		Average()
+	} else if numb == 3 {
 		OneDay()
-		break
-
+	} else {
+		fmt.Println("Incorrect input")
 	}
 }
